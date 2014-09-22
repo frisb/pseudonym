@@ -47,8 +47,21 @@
         if (val)
           @__d[i] = val
           return
-        else
+        else if (dest)
           return @__d[i]
+        else
+          return @__d
+
+      toDocument: (aliased) ->
+        doc = Object.create(null)
+        keys = if aliased then @schema.destKeys else @schema.srcKeys
+
+        for val, i in @__d
+          if (typeof(val) isnt 'undefined')
+            key = keys[i]
+            doc[key] = val
+
+        doc
 
       prev: (dest) ->
         i = @schema.destIndex[dest]
