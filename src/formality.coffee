@@ -10,21 +10,21 @@
 
       init: (@initializer) ->
         if (@initializer)
-          @src = []
-          @dest = []
+          @srcKeys = []
+          @destKeys = []
 
-          @srcMap = Object.create(null)
-          @destMap = Object.create(null)
+          @srcIndex = Object.create(null)
+          @destIndex = Object.create(null)
 
           i = 0
 
           addMapping = (s, d) =>
-            if (!@srcMap[s])
-              @src.push(s)
-              @dest.push(d)
+            if (!@srcIndex[s])
+              @srcKeys.push(s)
+              @destKeys.push(d)
 
-              @srcMap[s] = i
-              @destMap[d] = i
+              @srcIndex[s] = i
+              @destIndex[d] = i
 
               i++
 
@@ -33,34 +33,47 @@
           else
             addMapping(s, d) for s, d of @initializer
 
-      getSrc: (dest) -> @src[@destMap[dest]]
-      getDest: (src) -> @dest[@srcMap[src]]
+      getSrc: (dest) -> @srcKeys[@destIndex[dest]]
+      getDest: (src) -> @destKeys[@srcIndex[src]]
 
     class Formality
-      ensure: ->
-        @data = Object.create(null) if !@data
-        @prev = Object.create(null) if !@prev
+      constructor: ->
+        @__d = new Array(@schema.dest.length) if !@__d
+        @__p = new Array(@schema.dest.length) if !@__p
 
-      get: (src) ->
-        @ensure()
+      data: (dest, val) ->
+        i = @schema.destMap[dest]
+
+        if (val)
+          @__d[i] = val
+          return
+        else
+          return @__d[i]
+
+      prev: (dest) ->
+        i = @schema.destMap[dest]
+        @__p[i]
+
+      getValue: (src) ->
         dest = @schema.getDest(src)
-        @data[dest]
+        @data(dest)
 
-      set: (src, val) ->
-        @ensure()
-
+      setValue: (src, val) ->
         dest = @schema.getDest(src)
         currentVal = @data[dest]
 
-        @prev[dest] = currentVal if (typeof(currentVal) isnt 'undefined')
-        @data[dest] = val if (val isnt currentVal)
+        if (typeof(currentVal) isnt 'undefined')
+          i = @schema.destMap[dest]
+          @__p[i] = currentVal
+
+        @data(dest, val) if (val isnt currentVal)
 
         return dest
 
     applyProperty = (prototype, src) ->
       Object.defineProperty prototype, src,
-        get: -> @get(src)
-        set: (val) -> @set(src, val)
+        get: -> @getValue(src)
+        set: (val) -> @setValue(src, val)
 
     (superConstructor, schema) ->
       if (!schema)
