@@ -33,16 +33,16 @@
           else
             addMapping(s, d) for s, d of @initializer
 
-      getSrc: (dest) -> @srcKeys[@destIndex[dest]]
-      getDest: (src) -> @destKeys[@srcIndex[src]]
+      getSrcKey: (dest) -> @srcKeys[@destIndex[dest]]
+      getDestKey: (src) -> @destKeys[@srcIndex[src]]
 
     class Formality
       constructor: ->
-        @__d = new Array(@schema.dest.length) if !@__d
-        @__p = new Array(@schema.dest.length) if !@__p
+        @__d = new Array(@schema.destKeys.length) if !@__d
+        @__p = new Array(@schema.destKeys.length) if !@__p
 
       data: (dest, val) ->
-        i = @schema.destMap[dest]
+        i = @schema.destIndex[dest]
 
         if (val)
           @__d[i] = val
@@ -51,22 +51,22 @@
           return @__d[i]
 
       prev: (dest) ->
-        i = @schema.destMap[dest]
+        i = @schema.destIndex[dest]
         @__p[i]
 
       getValue: (src) ->
-        dest = @schema.getDest(src)
+        dest = @schema.getDestKey(src)
         @data(dest)
 
       setValue: (src, val) ->
-        dest = @schema.getDest(src)
-        currentVal = @data[dest]
+        dest = @schema.getDestKey(src)
+        previousVal = @data[dest]
 
-        if (typeof(currentVal) isnt 'undefined')
-          i = @schema.destMap[dest]
-          @__p[i] = currentVal
+        if (typeof(previousVal) isnt 'undefined')
+          i = @schema.destIndex[dest]
+          @__p[i] = previousVal
 
-        @data(dest, val) if (val isnt currentVal)
+        @data(dest, val) if (val isnt previousVal)
 
         return dest
 
@@ -86,6 +86,6 @@
 
         superConstructor::schema = new Schema(schema)
 
-      applyProperty(superConstructor::, s) for s in superConstructor::schema.src
+      applyProperty(superConstructor::, s) for s in superConstructor::schema.srcKeys
 
       superConstructor)
