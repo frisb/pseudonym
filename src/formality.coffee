@@ -45,6 +45,7 @@
         i = @schema.destIndex[dest]
 
         if (val)
+          #console.log(dest, val)
           @__d[i] = val
           return
         else if (dest)
@@ -54,12 +55,13 @@
 
       toDocument: (aliased) ->
         doc = Object.create(null)
-        keys = if aliased then @schema.destKeys else @schema.srcKeys
 
         for val, i in @__d
           if (typeof(val) isnt 'undefined')
-            key = keys[i]
-            doc[key] = val
+            src = @schema.srcKeys[i]
+
+            key = if aliased then @schema.getDestKey(src) else src
+            doc[key] = @getValue(src)
 
         doc
 

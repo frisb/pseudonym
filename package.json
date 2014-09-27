@@ -1,7 +1,7 @@
 {
   "name": "formality",
   "description": "Aliasing and metadata for server and client objects",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "contributors": [
     {
       "name": "Ashley Brener",
