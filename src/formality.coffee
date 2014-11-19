@@ -53,6 +53,9 @@
         else
           return @__d
 
+      toJSON: ->
+        @toDocument(true)
+
       toDocument: (aliased) ->
         doc = Object.create(null)
 
