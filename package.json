@@ -1,30 +1,30 @@
 {
-  "name": "formality",
-  "description": "Aliasing and metadata for server and client objects",
-  "version": "0.0.7",
+  "name": "aka",
+  "description": "Map javascript object properties to aliases for optimal serialized document storage",
+  "version": "0.0.1",
   "contributors": [
     {
       "name": "Ashley Brener",
       "url": "http://frisB.com"
     }
   ],
-  "main": "lib/formality",
+  "main": "lib/aka",
   "engines": {
     "node": ">= 0.8.x"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-clean": "^0.5.0",
-    "grunt-contrib-coffee": "^0.10.1"
+    "grunt-contrib-coffee": "^0.10.1",
+    "grunt-contrib-concat": "^0.5.0"
   },
   "bugs": {
-    "url": "https://github.com/frisb/formality/issues"
+    "url": "https://github.com/frisb/aka/issues"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/frisb/formality"
+    "url": "https://github.com/frisb/aka"
   },
-  "keywords": [
-  ]
+  "keywords": []
 }
