@@ -1,5 +1,5 @@
 ###*
- * Pseudonym maps javascript object properties to aliases for optimal serialized document storage.
+ * Pseudonym maps javascript object property names to aliases for optimal serialized document storage.
  * @module pseudonym
  * @author Ashley Brener <ashley@frisb.com>
  * @license The MIT License (MIT)
