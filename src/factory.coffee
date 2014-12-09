@@ -10,9 +10,9 @@ defineProperty = (prototype, src) ->
     set: (val) -> @setValue(src, val)
 
 ###*
- * Exposed function to implement AKA module.
+ * Exposed function to implement Pseudonym module.
  * @method
- * @param {object} [superConstructor] Class to inherit AKA Model.
+ * @param {object} [superConstructor] Class to inherit Pseudonym Model.
  * @param {string[]|object} aliases AliasMap initializer.
 ###  
 factory = ->
