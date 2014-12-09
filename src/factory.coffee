@@ -12,8 +12,8 @@ defineProperty = (prototype, src) ->
 ###*
  * Exposed function to implement AKA module.
  * @method
- * @param {object} superConstructor Optional class to inherit AKA Model.
- * @param {array|object} aliases AliasMap initializer.
+ * @param {object} [superConstructor] Class to inherit AKA Model.
+ * @param {string[]|object} aliases AliasMap initializer.
 ###  
 factory = ->
   (superConstructor, aliases) ->

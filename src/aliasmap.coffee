@@ -3,9 +3,9 @@ class AliasMap
    * Get an AliasMap class 
    * @class
    * @param {array|object} initializer Array or object of alias mappings.
-   * @property {array|object} initializer Array or object of alias mappings.
-   * @property {array} srcKeys Source key names.
-   * @property {array} destKeys Destination key names.
+   * @property {string[]|object} initializer Array or object of alias mappings.
+   * @property {string[]} srcKeys Source key names.
+   * @property {string[]} destKeys Destination key names.
    * @property {object} srcIndex Dictionary mapping source key names to srcKeys array indexes.
    * @property {object} destIndex Dictionary mapping destination key names to destKeys array indexes.
    * @return {AliasMap} AliasMap.
@@ -16,7 +16,7 @@ class AliasMap
   ###*
    * Initialize instance properties 
    * @method
-   * @param {array|object} initializer Array or object of alias mappings.
+   * @param {string[]|object} initializer Array or object of alias mappings.
   ###      
   init: (@initializer) ->
     if (@initializer)

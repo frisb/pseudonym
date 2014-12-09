@@ -1,14 +1,14 @@
-# Formality [![Build Status](https://travis-ci.org/frisb/formality.png)](http://travis-ci.org/frisb/formality)
+# AKA [![Build Status](https://travis-ci.org/frisb/aka.png)](http://travis-ci.org/frisb/aka)
 
-[![npm status badge](https://nodei.co/npm/formality.png?stars=true&downloads=true)](https://nodei.co/npm/formality/)
+[![npm status badge](https://nodei.co/npm/aka.png?stars=true&downloads=true)](https://nodei.co/npm/aka/)
 
-Formality is an Object aliasing module for server and client.
+AKA maps javascript object properties to aliases for optimal serialized document storage.
 
 This module is still early alpha and work is in progress. All contributions are welcome.
 
 ## Installation
 ```
-npm install formality
+npm install aka
 ```
 
 ## License
@@ -36,4 +36,4 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[![Analytics](https://ga-beacon.appspot.com/UA-40562957-8/formality/readme)](https://github.com/igrigorik/ga-beacon)
+[![Analytics](https://ga-beacon.appspot.com/UA-40562957-8/aka/readme)](https://github.com/igrigorik/ga-beacon)
