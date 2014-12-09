@@ -13,11 +13,12 @@ module.exports = (grunt) ->
           join: true
         files: [
           src: [
+            'src/intro.coffee'
             'src/aliasmap.coffee'
             'src/model.coffee'
             'src/factory.coffee'
           ]
-          dest: 'lib/aka.js'
+          dest: 'lib/pseudonym.js'
         ]
         
   grunt.loadNpmTasks('grunt-contrib-clean')
