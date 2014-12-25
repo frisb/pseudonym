@@ -2,14 +2,14 @@ class Model
   ###*
    * Get a Model class 
    * @class
-   * @property {object} aliases AliasMap instance.
+   * @property {object} aliasMap AliasMap instance.
    * @property {array} __d Current internal data values.
    * @property {array} __p Previous internal data values.
    * @return {Model} Model
   ###    
   constructor: ->
-    @__d = new Array(@aliases.destKeys.length) if !@__d
-    @__p = new Array(@aliases.destKeys.length) if !@__p
+    @__d = new Array(@aliasMap.destKeys.length) if !@__d
+    @__p = new Array(@aliasMap.destKeys.length) if !@__p
 
   ###*
    * Get / Set internal value for property alias.
@@ -19,7 +19,7 @@ class Model
    * @return {object} Value if val undefined.
   ###  
   data: (dest, val) ->
-    i = @aliases.destIndex[dest]
+    i = @aliasMap.destIndex[dest]
 
     if (val)
       @__d[i] = val
@@ -40,7 +40,7 @@ class Model
   ###*
    * Returns a simple document with aliased property names.
    * @method
-   * @param {boolean} aliased Boolean switch to specify whether to property name aliases should be returned with document.
+   * @param {boolean} aliased Boolean switch to specify whether property name aliases should be returned with document.
    * @return {object} Value if val undefined.
   ###  
   toDocument: (aliased) ->
@@ -48,9 +48,9 @@ class Model
 
     for val, i in @__d
       if (typeof(val) isnt 'undefined')
-        src = @aliases.srcKeys[i]
+        src = @aliasMap.srcKeys[i]
 
-        key = if aliased then @aliases.getDestKey(src) else src
+        key = if aliased then @aliasMap.getDestKey(src) else src
         doc[key] = @getValue(src)
 
     doc
@@ -62,7 +62,7 @@ class Model
    * @return {object} Value.
   ###  
   prev: (dest) ->
-    i = @aliases.destIndex[dest]
+    i = @aliasMap.destIndex[dest]
     @__p[i]
 
   ###*
@@ -72,7 +72,7 @@ class Model
    * @return {object} Value.
   ###  
   getValue: (src) ->
-    dest = @aliases.getDestKey(src)
+    dest = @aliasMap.getDestKey(src)
     @data(dest)
 
   ###*
@@ -83,11 +83,11 @@ class Model
    * @return {string} Property alias.
   ###  
   setValue: (src, val) ->
-    dest = @aliases.getDestKey(src)
+    dest = @aliasMap.getDestKey(src)
     previousVal = @data[dest]
 
     if (typeof(previousVal) isnt 'undefined')
-      i = @aliases.destIndex[dest]
+      i = @aliasMap.destIndex[dest]
       @__p[i] = previousVal
 
     @data(dest, val) if (val isnt previousVal)

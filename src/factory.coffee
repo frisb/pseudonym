@@ -18,6 +18,7 @@ defineProperty = (prototype, src) ->
 factory = ->
   (superConstructor, aliases) ->
     if (!aliases)
+      throw new Error('Model must have fields') unless superConstructor
       aliases = superConstructor
       superConstructor = Model
 
