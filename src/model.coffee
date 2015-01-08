@@ -13,7 +13,7 @@ class Model
 
   ###*
    * Get / Set internal value for property alias.
-   * @method
+   * @virtual
    * @param {string} dest Destination property alias.
    * @param {object} val Optional value to set.
    * @return {object} Value if val undefined.
@@ -67,7 +67,7 @@ class Model
 
   ###*
    * Get value for property name.
-   * @method
+   * @virtual
    * @param {string} src Source property name.
    * @return {object} Value.
   ###  
@@ -77,7 +77,7 @@ class Model
 
   ###*
    * Set value for property name.
-   * @method
+   * @virtual
    * @param {string} src Source property name.
    * @param {object} val Value to set.
    * @return {string} Property alias.
