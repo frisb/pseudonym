@@ -35,7 +35,7 @@ class Model
    * @return {object} Object to stringify.
   ###  
   toJSON: ->
-    @toDocument(true)
+    @toDocument()
   
   ###*
    * Returns a simple document with aliased property names.
