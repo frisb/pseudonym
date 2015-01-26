@@ -21,7 +21,7 @@ class Model
   data: (dest, val) ->
     i = @aliasMap.destIndex[dest]
 
-    if (val)
+    if (typeof(val) isnt 'undefined')
       @__d[i] = val
       return
     else if (dest)
