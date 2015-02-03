@@ -1,7 +1,7 @@
 {
   "name": "pseudonym",
   "description": "Map javascript object property names to aliases for optimal serialized document storage",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "contributors": [
     {
       "name": "Ashley Brener",

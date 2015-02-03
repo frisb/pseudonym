@@ -9,6 +9,8 @@ defineProperty = (prototype, src) ->
     get: -> @getValue(src)
     set: (val) -> @setValue(src, val)
 
+  return
+
 ###*
  * Exposed function to implement Pseudonym module.
  * @method
@@ -17,15 +19,17 @@ defineProperty = (prototype, src) ->
 ###  
 factory = ->
   (superConstructor, aliases) ->
+
+
     if (!aliases)
       throw new Error('Model must have fields') unless superConstructor
       aliases = superConstructor
-      superConstructor = Model
+      superConstructor = createModel()
 
     if (aliases)
       aliases = [aliases] if (typeof(aliases) is 'string')
       superConstructor::aliasMap = new AliasMap(aliases)
-
+      
     defineProperty(superConstructor::, key) for key in superConstructor::aliasMap.srcKeys
 
     superConstructor
