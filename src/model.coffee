@@ -1,4 +1,6 @@
-createModel = ->
+createModel = (aliases) ->
+  aliasMap = new AliasMap(aliases)
+  
   class Model
     ###*
      * Get a Model class 
@@ -9,8 +11,10 @@ createModel = ->
      * @return {Model} Model
     ###    
     constructor: ->
-      @__d = new Array(@aliasMap.destKeys.length) if !@__d
-      @__p = new Array(@aliasMap.destKeys.length) if !@__p
+     
+    aliasMap: aliasMap 
+    __d: new Array(aliasMap.destKeys.length)
+    __p: new Array(aliasMap.destKeys.length)
 
     ###*
      * Get / Set internal value for property alias.
@@ -49,9 +53,9 @@ createModel = ->
 
       for val, i in @__d
         if (typeof(val) isnt 'undefined')
-          src = @aliasMap.srcKeys[i]
+          src = aliasMap.srcKeys[i]
 
-          key = if aliased then @aliasMap.getDestKey(src) else src
+          key = if aliased then aliasMap.getDestKey(src) else src
           doc[key] = @getValue(src)
 
       doc
@@ -63,7 +67,7 @@ createModel = ->
      * @return {object} Value.
     ###  
     prev: (dest) ->
-      i = @aliasMap.destIndex[dest]
+      i = aliasMap.destIndex[dest]
       @__p[i]
 
     ###*
@@ -73,7 +77,7 @@ createModel = ->
      * @return {object} Value.
     ###  
     getValue: (src) ->
-      dest = @aliasMap.getDestKey(src)
+      dest = aliasMap.getDestKey(src)
       @data(dest)
 
     ###*
@@ -84,11 +88,11 @@ createModel = ->
      * @return {string} Property alias.
     ###  
     setValue: (src, val) ->
-      dest = @aliasMap.getDestKey(src)
+      dest = aliasMap.getDestKey(src)
       previousVal = @data[dest]
 
       if (typeof(previousVal) isnt 'undefined')
-        i = @aliasMap.destIndex[dest]
+        i = aliasMap.destIndex[dest]
         @__p[i] = previousVal
 
       @data(dest, val) if (val isnt previousVal)

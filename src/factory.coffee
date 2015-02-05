@@ -18,20 +18,12 @@ defineProperty = (prototype, src) ->
  * @param {string[]|object} aliases AliasMap initializer.
 ###  
 factory = ->
-  (superConstructor, aliases) ->
-
-
-    if (!aliases)
-      throw new Error('Model must have fields') unless superConstructor
-      aliases = superConstructor
-      superConstructor = createModel()
-
-    if (aliases)
-      aliases = [aliases] if (typeof(aliases) is 'string')
-      superConstructor::aliasMap = new AliasMap(aliases)
+  (aliases) ->
+    aliases = [aliases] if (typeof(aliases) is 'string')
+    superConstructor = createModel(aliases)
       
     defineProperty(superConstructor::, key) for key in superConstructor::aliasMap.srcKeys
-
+    
     superConstructor
     
 do ->
