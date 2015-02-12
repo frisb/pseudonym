@@ -1,6 +1,8 @@
-# Pseudonym [![Build Status](https://travis-ci.org/frisb/pseudonym.png)](http://travis-ci.org/frisb/pseudonym)
-
-[![npm status badge](https://nodei.co/npm/pseudonym.png?stars=true&downloads=true)](https://nodei.co/npm/pseudonym/)
+# pseudonym 
+[![Build Status](https://travis-ci.org/frisb/pseudonym.png)](http://travis-ci.org/frisb/pseudonym)
+[![Dependency Status](https://gemnasium.com/frisb/pseudonym.svg)](https://gemnasium.com/frisb/pseudonym)
+[![Code Climate](https://codeclimate.com/github/frisb/pseudonym/badges/gpa.svg)](https://codeclimate.com/github/frisb/pseudonym)
+[![npm version](https://badge.fury.io/js/pseudonym.svg)](http://badge.fury.io/js/pseudonym)
 
 Pseudonym maps javascript object properties to aliases for optimal serialized document storage.
 
