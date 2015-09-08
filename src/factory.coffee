@@ -24,6 +24,14 @@ factory = ->
       
     defineProperty(superConstructor::, key) for key in superConstructor::aliasMap.srcKeys
     
+    superConstructor.extend = (child) ->
+      childProto = {}
+      childProto[propName] = child::[propName] for propName in Object.getOwnPropertyNames(child::)
+      
+      child extends superConstructor
+      child::[k] = v for k, v of childProto
+      child
+    
     superConstructor
     
 do ->
