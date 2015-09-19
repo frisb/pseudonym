@@ -12,9 +12,14 @@ createModel = (aliases) ->
     ###    
     constructor: ->
      
-    aliasMap: aliasMap 
-    __d: new Array(aliasMap.destKeys.length)
-    __p: new Array(aliasMap.destKeys.length)
+    aliasMap: aliasMap
+
+    init: ->
+      if (!@__d)
+        @__d = new Array(aliasMap.destKeys.length)
+        @__p = new Array(aliasMap.destKeys.length)
+
+        return
 
     ###*
      * Get / Set internal value for property alias.
@@ -24,6 +29,8 @@ createModel = (aliases) ->
      * @return {object} Value if val undefined.
     ###  
     data: (dest, val) ->
+      @init();
+
       i = @aliasMap.destIndex[dest]
 
       if (typeof(val) isnt 'undefined')
