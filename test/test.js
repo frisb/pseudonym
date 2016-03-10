@@ -1,27 +1,72 @@
 'use strict';
-var Pseudonym = require('../lib/pseudonym');
 
-console.log(Pseudonym);
+var util = require('util');
 
+var Pseudonym = require('../lib/pseudonym.min');
 
-describe('Writeln', function () {
-	it('should test', function (done) {
-		var X = Pseudonym({
-			Alpha: 'a',
-			Bravo: 'b',
-			Charlie: 'c'
-		});
-		var x = new X();
+var Person = Pseudonym({
+	firstName: 'f',
+	lastName: 'l'
+});
 
+function Employee() {
+	Person.apply(this, arguments);
+}
 
-		console.log(x);
+Person.extend(Employee);
 
-		x.a = 'hello';
+Employee.fieldMap.add('company', 'c');
 
-		console.log(x);
+Employee.prototype.serialize = function () {
+	var str = 'Hi, my name is ' + this.firstName + ' ' + this.lastName + '.\n';
+	str += 'I work at ' + this.company + '.';
 
-		console.log(x.toJSON());
+	return str;
+};
+
+describe('Base class', function () {
+	it('should create a person instance', function (done) {
+		var person = new Person();
+		person.firstName = 'John';
+		person.lastName = 'Smith';
+
+		console.log(person.serialize());
 
 		done();
 	});
+
+	it('should create a person instance 2', function (done) {
+		var person = new Person({
+			f: 'John',
+			l: 'Smith'
+		}, true);
+
+		console.log(person.serialize());
+
+		done();
+	});
+
+	it('should create an employee instance', function (done) {
+		var employee = new Employee();
+		employee.firstName = 'John';
+		employee.lastName = 'Smith';
+		employee.company = 'Acme';
+
+		console.log(employee.serialize());
+
+		done();
+	});
+
+	it('should create an employee instance 2', function (done) {
+		var employee = new Employee({
+			f: 'John',
+			l: 'Smith',
+			c: 'Acme'
+		}, true);
+
+		console.log(employee.serialize());
+
+		done();
+	});
+
 });

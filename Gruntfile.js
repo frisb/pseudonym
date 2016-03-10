@@ -11,20 +11,23 @@ module.exports = function (grunt) {
       },
       es6: ['src/**/*.js']
     },
-    concat: {
+    browserify: {
       compile: {
-        src: [
-          'src/intro.js',
-          'src/aliasmap.js',
-          'src/model.js',
-          'src/factory.js'
-        ],
-        dest: 'lib/pseudonym.js'
-      }
-    },
-    babel: {
-      compile: {
-        files: [ { 'lib/pseudonym.js': 'lib/pseudonym.js' } ]
+        options: {
+          browserifyOptions: {
+            standalone: 'Pseudonym'
+          },
+          plugin: [
+            [ 'browserify-header', { file: 'src/header.js' } ]
+          //  [ "browserify-derequire" ]
+          ],
+          transform: [
+            [
+              'babelify'
+            ]
+          ]
+        },
+        files: { 'lib/pseudonym.js': 'src/index.js' }
       }
     },
     uglify: {
@@ -44,10 +47,8 @@ module.exports = function (grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-babel');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-mocha-test');
 
-  grunt.registerTask('default', ['clean', 'jshint', 'concat', 'babel', 'uglify', 'mochaTest']);
+  grunt.registerTask('default', ['clean', 'jshint', 'browserify', 'uglify', 'mochaTest']);
 };

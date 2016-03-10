@@ -4,7 +4,7 @@
   "bitwise": false,
   "curly": false,
   "immed": true,
-  "newcap": true,
+  "newcap": false,
   "noarg": true,
   "undef": false,
   "unused": false,

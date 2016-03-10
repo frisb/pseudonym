@@ -1,3 +1,4 @@
+
 /*
  * Pseudonym maps javascript object property names to aliases for optimal serialized document storage.
  * @module pseudonym
