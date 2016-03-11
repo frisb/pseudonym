@@ -35,7 +35,7 @@ module.exports = function (grunt) {
 
         output : {
           path     : './lib',
-          filename : 'pseudonym.js',
+          filename : '<%= pkg.name %>.js',
           libraryTarget: 'umd',
           sourceMapFilename: '[file].map',
           umdNamedDefine: true
@@ -61,9 +61,9 @@ module.exports = function (grunt) {
           mangle: true,
           report: 'gzip',
           sourceMap: true,
-          sourceMapIn: 'lib/pseudonym.js.map'
+          sourceMapIn: 'lib/<%= pkg.name %>.js.map'
         },
-        files: { 'lib/pseudonym.min.js': 'lib/pseudonym.js' }
+        files: { 'lib/<%= pkg.name %>.min.js': 'lib/<%= pkg.name %>.js' }
       }
     },
 

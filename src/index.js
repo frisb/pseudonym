@@ -1,22 +1,5 @@
 import {createModel} from './model';
-
-function __extends(child, parent) {
-  for (var key in parent) {
-    if (parent.hasOwnProperty(key))
-      child[key] = parent[key];
-  }
-
-  function ctor() {
-    this.constructor = child;
-  }
-
-  ctor.prototype = parent.prototype;
-  child.prototype = new ctor();
-  child.__super__ = parent.prototype;
-
-  return child;
-}
-
+import extend from './extend';
 
 /*
  * Define source name properties on the Model prototype
@@ -24,7 +7,7 @@ function __extends(child, parent) {
  * @param {object} prototype Model implementation prototype.
  * @param {string} src Source name.
  */
-function __defineProperty(prototype, src) {
+function _defineProperty(prototype, src) {
   Object.defineProperty(prototype, src, {
     get() {
       return this.getValue(src);
@@ -51,28 +34,10 @@ export default function (fields) {
 
   for (let i = 0, len = srcKeys.length; i < len; i++) {
     let key = srcKeys[i];
-    __defineProperty(prototype, key);
+    _defineProperty(prototype, key);
   }
 
-  superConstructor.extend = function (child) {
-    let childProto = {};
-
-    let propNames = Object.getOwnPropertyNames(child.prototype);
-
-    for (let j = 0, len = propNames.length; j < len; j++) {
-      let name = propNames[j];
-      childProto[name] = child.prototype[name];
-    }
-
-    __extends(child, superConstructor);
-
-    for (let key in childProto)
-      child.prototype[key] = childProto[key];
-
-    child.fieldMap = fieldMap;
-
-    return child;
-  };
+  superConstructor.extend = extend;
 
   return superConstructor;
 }

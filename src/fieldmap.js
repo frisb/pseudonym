@@ -12,13 +12,24 @@ export default class FieldMap {
    */
   constructor(fields) {
     this.index = 0;
-    this.init(fields);
+
+    this.fields = {};
+
+    this.srcKeys = [];
+    this.destKeys = [];
+
+    this.srcIndex = Object.create(null);
+    this.destIndex = Object.create(null);
+
+    this.merge(fields);
   }
 
   add(src, dest = src) {
-    let {index, srcIndex, destIndex, srcKeys, destKeys} = this;
+    let {index, fields, srcIndex, destIndex, srcKeys, destKeys} = this;
 
     if (!srcIndex[src]) {
+      fields[src] = dest;
+
       srcKeys.push(src);
       destKeys.push(dest);
 
@@ -34,14 +45,8 @@ export default class FieldMap {
    * @method
    * @param {string[]|object} fields Array or object of alias mappings.
    */
-  init(fields) {
+  merge(fields) {
     if (fields) {
-      this.srcKeys = [];
-      this.destKeys = [];
-
-      this.srcIndex = Object.create(null);
-      this.destIndex = Object.create(null);
-
       if (fields instanceof Array) {
         for (let j = 0, len = fields.length; j < len; j++)
           this.add(fields[j]);
@@ -54,8 +59,6 @@ export default class FieldMap {
           }
         }
       }
-
-      this.fields = fields;
     }
   }
 
