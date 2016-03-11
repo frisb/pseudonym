@@ -4,6 +4,9 @@ var util = require('util');
 
 var Pseudonym = require('../lib/pseudonym.min');
 
+
+console.log('pseudonym', util.inspect(Pseudonym, { showHidden: true, depth: null }));
+
 var Person = Pseudonym({
 	firstName: 'f',
 	lastName: 'l'
