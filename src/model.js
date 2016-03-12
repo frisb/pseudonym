@@ -1,8 +1,6 @@
 import FieldMap from './fieldmap';
 
-export function createModel(fields) {
-  let _fieldMap = new FieldMap(fields);
-
+export function createModelClass() {
   /*
    * Get a Model class
    * @class
@@ -16,14 +14,14 @@ export function createModel(fields) {
       this.deserialize(initializer, aliased);
     }
 
-    static get fieldMap() {
-      return _fieldMap;
+    get fieldMap() {
+      return this.constructor.fieldMap;
     }
 
     init() {
       if (!this.__d) {
-        this.__d = new Array(_fieldMap.destKeys.length);
-        this.__p = new Array(_fieldMap.destKeys.length);
+        this.__d = new Array(this.fieldMap.destKeys.length);
+        this.__p = new Array(this.fieldMap.destKeys.length);
       }
     }
 
@@ -37,7 +35,7 @@ export function createModel(fields) {
     data(dest, val) {
       this.init();
 
-      let i = _fieldMap.destIndex[dest];
+      let i = this.fieldMap.destIndex[dest];
 
       if (typeof(val) !== 'undefined') {
         this.__d[i] = val;
@@ -51,6 +49,10 @@ export function createModel(fields) {
       }
     }
 
+    toString() {
+      return this.serialize();
+    }
+
     serialize() {
       return JSON.stringify(this);
     }
@@ -61,7 +63,7 @@ export function createModel(fields) {
 
       for (let dest in obj) {
         if (obj.hasOwnProperty(dest)) {
-          let key = aliased ? _fieldMap.getSrcKey(dest) : dest;
+          let key = aliased ? this.fieldMap.getSrcKey(dest) : dest;
           this[key] = obj[dest];
         }
       }
@@ -93,9 +95,9 @@ export function createModel(fields) {
           let val = __d[i];
 
           if (typeof(val) !== 'undefined') {
-            let src = _fieldMap.srcKeys[i];
+            let src = this.fieldMap.srcKeys[i];
 
-            let key = aliased ? _fieldMap.getDestKey(src) : src;
+            let key = aliased ? this.fieldMap.getDestKey(src) : src;
             doc[key] = this[src];
           }
         }
@@ -111,7 +113,7 @@ export function createModel(fields) {
      * @return {object} Value.
      */
     prev(dest) {
-      let i = _fieldMap.destIndex[dest];
+      let i = this.fieldMap.destIndex[dest];
       return this.__p[i];
     }
 
@@ -122,7 +124,7 @@ export function createModel(fields) {
      * @return {object} Value.
      */
     getValue(src) {
-      let dest = _fieldMap.getDestKey(src);
+      let dest = this.fieldMap.getDestKey(src);
       return this.data(dest);
     }
 
@@ -134,11 +136,11 @@ export function createModel(fields) {
      * @return {string} Property alias.
      */
     setValue(src, val) {
-      let dest = _fieldMap.getDestKey(src);
+      let dest = this.fieldMap.getDestKey(src);
       let previousVal = this.data[dest];
 
       if (typeof(previousVal) !== 'undefined') {
-        let i = _fieldMap.destIndex[dest];
+        let i = this.fieldMap.destIndex[dest];
         this.__p[i] = previousVal;
       }
 

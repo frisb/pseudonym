@@ -11,7 +11,7 @@ export default class FieldMap {
    * @return {FieldMap} FieldMap.
    */
   constructor(fields) {
-    this.index = 0;
+    this.count = 0;
 
     this.fields = {};
 
@@ -25,7 +25,7 @@ export default class FieldMap {
   }
 
   add(src, dest = src) {
-    let {index, fields, srcIndex, destIndex, srcKeys, destKeys} = this;
+    let {count, fields, srcIndex, destIndex, srcKeys, destKeys} = this;
 
     if (!srcIndex[src]) {
       fields[src] = dest;
@@ -33,10 +33,10 @@ export default class FieldMap {
       srcKeys.push(src);
       destKeys.push(dest);
 
-      srcIndex[src] = index;
-      destIndex[dest] = index;
+      srcIndex[src] = count;
+      destIndex[dest] = count;
 
-      this.index++;
+      this.count++;
     }
   }
 
@@ -47,6 +47,9 @@ export default class FieldMap {
    */
   merge(fields) {
     if (fields) {
+      if (typeof(fields) === 'string')
+        fields = [fields];
+
       if (fields instanceof Array) {
         for (let j = 0, len = fields.length; j < len; j++)
           this.add(fields[j]);
